@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import { Player, ControlBar } from 'video-react';
+import YouTube from 'react-youtube';
+
 
 export default class VideoPlayer extends Component {
-  render() {
-    console.log(this.props.match.params.trailer);
+  _onReady(event) {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
+  }
+  render () {
+
+    const opts = {
+      height: window.outerHeight,
+      width: window.outerWidth,
+      playerVars: { // https://developers.google.com/youtube/player_parameters
+        autoplay: 1
+      }
+    };
+  
     return (
-      <div>
-        <Player ref="player" autoPlay>
-          <source src={`http://youtube.com/watch?${this.props.match.params.trailer}`} />
-          <ControlBar autoHide={false} />
-        </Player>
-        </div>
+      <YouTube
+        videoId={this.props.match.params.trailer}
+        opts={opts}
+        onReady={this._onReady}
+      />
     );
   }
 }

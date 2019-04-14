@@ -13,6 +13,9 @@ module.exports = {
       resolve: {
         extensions: ['*', '.js', '.jsx']
       },
+      node: {
+        fs: 'empty'
+      },
       plugins: [
         new webpack.HotModuleReplacementPlugin()
       ],    
@@ -24,5 +27,8 @@ module.exports = {
     devServer: {
       contentBase: './dist',
       hot: true
-    }
+    },
+    node: {
+      fs: 'empty'
+    },
   };

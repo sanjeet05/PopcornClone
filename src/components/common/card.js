@@ -27,7 +27,7 @@ class Card extends Component {
     }
     render() {
         const {name, image, synopsis, genres, rating, trailer, torrent} = this.props;
-        const trailerLink = trailer.split('?')[1];
+        const trailerLink = trailer && trailer.split('?')[1];
         const defaultImage = 'https://media.comicbook.com/files/img/default-movie.png';
         return (
             <div className="col-3 p-2">
@@ -41,10 +41,11 @@ class Card extends Component {
                     <div className="card-reveal">
                         <span className="card-title">{name} <i className="material-icons right"> close </i> </span>
                         <div className="row"> <p className="font-weight-light activator grey-text text-darken-4">{synopsis} </p> </div>
-                        <div className="row"> <p className="activator grey-text text-capitalize text-darken-4">{genres.join(', ')} </p> </div>
+                        <div className="row"> <p className="activator grey-text text-capitalize text-darken-4">{genres && genres.join(', ')} </p> </div>
                         <div className="row"> <p className="activator grey-text text-capitalize text-darken-4">IMDB Rating : {rating.percentage/10} </p> </div>
                         <div className="row">
-                            <Link className="col mx-2 " to ={`/movie/${trailerLink}`} ><button className="btn waves-effect waves-light" name="action">Trailer </button></Link>
+                            { trailerLink ? <Link className="col mx-2 " to ={`/movie/${trailerLink}`} ><button className="btn waves-effect waves-light" name="action">Trailer </button></Link> : null}
+                            
                             <button className="col btn waves-effect waves-light" type="submit" name="action" onClick={this.toggle}>Movie</button>
                             <Modal isOpen={this.state.modal} toggle={this.toggle}>
                                 <ModalHeader toggle={this.toggle}>
